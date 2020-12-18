@@ -21,6 +21,7 @@ var app = new Vue({
           self.movies = movieSpecs;
           console.log(self.movies);
         });
+        self.keywordMovieTitle = "";
 
     }
   },
