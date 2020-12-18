@@ -1,0 +1,79 @@
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background: #434343;
+}
+
+.header-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 80px;
+  background: black;
+  padding-bottom: 15px
+}
+
+#logo {
+  color: red;
+  margin: 0;
+  padding-left: 30px
+}
+
+.search-bar {
+  display: flex;
+  padding-right: 30px
+}
+
+main {
+  height: 100vh;
+  width: 100%;
+
+}
+
+#wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+
+}
+
+.poster {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  background: black;
+  width: 342px;
+  margin: 20px;
+  border: 2px solid white
+}
+
+.flyer {
+  width: 342px;
+  z-index: 2
+}
+
+.flyer:hover {
+  opacity: 0.0;
+}
+
+.specs {
+  position: absolute;
+  left: 20px;
+  color: white;
+}
+
+.stars {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.stars li{
+  display: inline;
+}
+
+.stars i {
+  color: yellow;
+}
