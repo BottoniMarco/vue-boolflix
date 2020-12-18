@@ -10,15 +10,15 @@
     <title></title>
   </head>
   <body>
-    <div id="root">
+    <div id="app">
       <header>
         <div class="header-bar">
           <h1 id="logo">
             BOOLFLIX
           </h1>
           <div class="search-bar">
-            <input type="text" name="" value="" placeholder="Inserisci titolo">
-            <button type="button" name="button">Cerca</button>
+            <input type="text" name="" value="" placeholder="Inserisci titolo" v-model="keywordMovieTitle">
+            <button type="button" name="button" @click="apiSearch">Cerca</button>
           </div>
         </div>
       </header>
