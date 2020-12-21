@@ -30,8 +30,11 @@
             <div class="specs">
               <p><strong>Titolo:</strong> {{ movie.title }}</p>
               <p><strong>Titolo originale:</strong> {{ movie.original_title }}</p>
-              <p ><strong>Lingua originale</strong> <img class="flag" v-for="(flag , index) in flags" v-if="movie.original_language == 'en' || movie.original_language == 'it' || movie.original_language == 'es'"
+              <p>
+                <strong>Lingua originale</strong>
+                <img class="flag" v-for="(flag , index) in flags" v-if="movie.original_language == index "
               :src="flag" alt="">
+
               </p>
               <!-- <p v-if="movie.original_language == 'it' "><strong>Lingua originale</strong> <img class="flag" src="https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/1200px-Flag_of_Italy.svg.png" alt="">
               </p>
@@ -41,7 +44,7 @@
               <span>
                 Voto:
                 <ul class="stars">
-                  <li v-for = "index in positiveVote" :key="index">
+                  <!-- <li v-for = "index in positiveVote" :key="index"> -->
                     <i class="fas fa-star"></i>
                   </li>
                   <li v-for = "index in negativeVote" :key="index">
