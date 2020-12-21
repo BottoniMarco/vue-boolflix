@@ -2,6 +2,7 @@ var app = new Vue({
   el: "#app",
   data: {
     movies:[],
+    series:[],
     keywordMovieTitle: "",
     // positiveVote:"",
     negativeVote:"",
@@ -16,36 +17,52 @@ var app = new Vue({
   methods: {
     apiSearch:function () {
       const self = this;
+      promise.all([
+        axios.get('https://api.themoviedb.org/3/search/movie',{
+          params:{
+            api_key:'1a9e369e17c6561e8db673b4313eb4c1',
+            query:self.keywordMovieTitle,
+            language:'it-IT',
+          }
+        }),
 
-      axios.get('https://api.themoviedb.org/3/search/movie',{
-        params:{
-          api_key:'1a9e369e17c6561e8db673b4313eb4c1',
-          query:self.keywordMovieTitle,
-          language:'it-IT',
-        }
-      })
+        axios.get('https://api.themoviedb.org/3/search/tv',{
+          params:{
+            api_key:'e99307154c6dfb0b4750f6603256716d',
+            query:self.keywordMovieTitle,
+            language:'it-IT',
+          }
+        })
+
+      ])
+
         .then(function (result) {
           let movieSpecs = result.data.results;
           self.movies = movieSpecs;
           console.log(self.movies);
+          self.starsConversion(self.movies);
+
+          let tvSpecs = result.data.results;
+          self.series = tvSpecs;
+          console.log(self.series);
+          self.starsConversion(self.series)
+
         });
         self.keywordMovieTitle = "";
+
+        // .then(function (result) {
+        //   let tvSpecs = result.data.results;
+        //   self.series = tvSpecs;
+        //   console.log(self.series);
+        //   self.starsConversion(self.series)
+        // });
+
     },
-    starsConversion: function (index){
-      this.selectedMovies = index;
-      console.log(this.selectedMovies);
-
-      const filledStars = Math.ceil(this.movies[this.selectedMovies].vote_average /2);
-
-      const fullStars = {test:filledStars};
-      console.log(fullStars);
-
-      this.movies[this.selectedMovies]="fullStars";
-
-
-
-      let emptyStars = 5 - fullStars;
-      this.negativeVote = emptyStars;
+    starsConversion: function (movies){
+      for(let i =0; i<movies.length; i++) {
+        const fullStars = Math.ceil(movies[i].vote_average /2);
+        movies[i].fullStars = fullStars;
+      }
     },
   },
   created: function (index){
