@@ -37,25 +37,18 @@ var app = new Vue({
       }
       Promise.all([getMovies(), getTv()])
         .then(function (result) {
-          let movieSpecs = result.data.results;
+          let movieSpecs = result[0].data.results;
           self.movies = movieSpecs;
           console.log(self.movies);
           self.starsConversion(self.movies);
 
-          let tvSpecs = result.data.results;
+          let tvSpecs = result[1].data.results;
           self.series = tvSpecs;
           console.log(self.series);
           self.starsConversion(self.series)
 
         });
         self.keywordMovieTitle = "";
-
-        // .then(function (result) {
-        //   let tvSpecs = result.data.results;
-        //   self.series = tvSpecs;
-        //   console.log(self.series);
-        //   self.starsConversion(self.series)
-        // });
 
     },
     starsConversion: function (movies){
