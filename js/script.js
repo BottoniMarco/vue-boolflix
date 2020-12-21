@@ -4,8 +4,6 @@ var app = new Vue({
     movies:[],
     series:[],
     keywordMovieTitle: "",
-    // positiveVote:"",
-    negativeVote:"",
     flags:
       {
         es:"https://external-preview.redd.it/sgupg2QyvwFm7eLaH0isYTSx1IAYT2cnG9EG2qaK7dc.png?auto=webp&s=c2fe73665a3b109d9a040fb4f70fcba4e2875149",
@@ -17,25 +15,27 @@ var app = new Vue({
   methods: {
     apiSearch:function () {
       const self = this;
-      promise.all([
-        axios.get('https://api.themoviedb.org/3/search/movie',{
+      function getMovies(){
+        return axios.get('https://api.themoviedb.org/3/search/movie',{
           params:{
             api_key:'1a9e369e17c6561e8db673b4313eb4c1',
             query:self.keywordMovieTitle,
             language:'it-IT',
           }
-        }),
+        })
+      }
 
-        axios.get('https://api.themoviedb.org/3/search/tv',{
+      function getTv(){
+        return axios.get('https://api.themoviedb.org/3/search/tv',{
           params:{
-            api_key:'e99307154c6dfb0b4750f6603256716d',
+            api_key:'1a9e369e17c6561e8db673b4313eb4c1',
             query:self.keywordMovieTitle,
             language:'it-IT',
           }
         })
 
-      ])
-
+      }
+      Promise.all([getMovies(), getTv()])
         .then(function (result) {
           let movieSpecs = result.data.results;
           self.movies = movieSpecs;
