@@ -2,11 +2,17 @@ var app = new Vue({
   el: "#app",
   data: {
     movies:[],
-    keywordMovieTitle: ""
+    keywordMovieTitle: "",
+    positiveVote:"",
+    negativeVote:"",
+    flags:[
+      {en:"https://external-preview.redd.it/sgupg2QyvwFm7eLaH0isYTSx1IAYT2cnG9EG2qaK7dc.png?auto=webp&s=c2fe73665a3b109d9a040fb4f70fcba4e2875149"},
+      {it:"https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/1200px-Flag_of_Italy.svg.png"},
+      {usa:"https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png"}
+    ]
   },
   methods: {
     apiSearch:function () {
-      console.log("test");
       const self = this;
 
       axios.get('https://api.themoviedb.org/3/search/movie',{
@@ -22,10 +28,22 @@ var app = new Vue({
           console.log(self.movies);
         });
         self.keywordMovieTitle = "";
+    },
+    starsConversion: function (index){
+      this.selectedMovies = index;
 
-    }
+      let fullStars = Math.ceil(this.movies[this.selectedMovies].vote_average /2);
+      this.positiveVote = fullStars
+
+
+      let emptyStars = 5 - fullStars;
+      this.negativeVote = emptyStars;
+    },
   },
-  created: function (){
+  created: function (index){
+    console.log(this.flags[0]);
+
+
 
   }
 })

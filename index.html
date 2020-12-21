@@ -18,26 +18,35 @@
           </h1>
           <div class="search-bar">
             <input type="text" name="" value="" placeholder="Inserisci titolo" v-model="keywordMovieTitle" v-on:keyup.enter="apiSearch">
-            <button type="button" name="button" @click="apiSearch">Cerca</button>
+            <button type="button" name="button" @click="apiSearch()">Cerca</button>
           </div>
         </div>
       </header>
 
       <main>
         <div id="wrapper">
-          <div class="poster" v-for="movie in movies">
+          <div class="poster" v-for="(movie , index) in movies" @mouseover="starsConversion(index)">
             <img class="flyer" :src="'https://image.tmdb.org/t/p/w220_and_h330_face/' +  movie.poster_path"  alt="">
             <div class="specs">
               <p><strong>Titolo:</strong> {{ movie.title }}</p>
               <p><strong>Titolo originale:</strong> {{ movie.original_title }}</p>
+              <p ><strong>Lingua originale</strong> <img class="flag" v-for="(flag , index) in flags" v-if="movie.original_language == 'en' || movie.original_language == 'it' || movie.original_language == 'es'"
+              :src="flag" alt="">
+              </p>
+              <!-- <p v-if="movie.original_language == 'it' "><strong>Lingua originale</strong> <img class="flag" src="https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/1200px-Flag_of_Italy.svg.png" alt="">
+              </p>
+              <p v-if="movie.original_language == 'es' "><strong>Lingua originale</strong> <img class="flag" src="https://external-preview.redd.it/sgupg2QyvwFm7eLaH0isYTSx1IAYT2cnG9EG2qaK7dc.png?auto=webp&s=c2fe73665a3b109d9a040fb4f70fcba4e2875149" alt="">
+              </p> -->
+
               <span>
                 Voto:
                 <ul class="stars">
-                  <li><i class="fas fa-star"></i></li>
-                  <li><i class="fas fa-star"></i></li>
-                  <li><i class="fas fa-star"></i></li>
-                  <li><i class="fas fa-star"></i></li>
-                  <li><i class="fas fa-star"></i></li>
+                  <li v-for = "index in positiveVote" :key="index">
+                    <i class="fas fa-star"></i>
+                  </li>
+                  <li v-for = "index in negativeVote" :key="index">
+                    <i class="far fa-star"></i>
+                  </li>
                 </ul>
               </span>
               <p><strong>Overview:</strong> {{ movie.overview }} </p>

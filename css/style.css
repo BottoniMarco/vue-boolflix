@@ -71,9 +71,19 @@ main {
 }
 
 .stars li{
-  display: inline;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
 }
 
 .stars i {
+  display: inline-block;
   color: yellow;
+  margin: 0;
+  padding: 0;
+}
+
+.flag{
+  height: 20px;
+  width: 30px;
 }
