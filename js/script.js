@@ -35,6 +35,7 @@ var app = new Vue({
       }
       Promise.all([getMovies(), getTv()])
         .then(function (result) {
+          self.movies = [];
           self.movies.push(...result[0].data.results);
           self.movies.push(...result[1].data.results);
           console.log(self.movies);
