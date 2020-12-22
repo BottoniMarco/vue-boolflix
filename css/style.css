@@ -58,6 +58,16 @@ main {
   opacity: 0.0;
 }
 
+.flyer-substitute{
+  width: 342px;
+  height: 513px;
+  z-index: 2
+}
+
+.flyer-substitute:hover{
+  opacity: 0.0;
+}
+
 .specs {
   position: absolute;
   left: 20px;

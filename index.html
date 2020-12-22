@@ -26,16 +26,34 @@
       <main>
         <div id="wrapper">
           <div class="poster" v-for= "(movie , index) in movies">
+            <img class="flyer-substitute" src="https://il-cubo.it/images/cover19.jpg" alt="" v-if="movie.poster_path == null">
 
             <img class="flyer" :src="'https://image.tmdb.org/t/p/w220_and_h330_face/' +  movie.poster_path"  alt="">
             <div class="specs">
-              <p><strong>Titolo:</strong> {{ movie.title }}</p>
-              <p><strong>Titolo originale:</strong> {{ movie.original_title }}</p>
-              <p>
-                <strong>Lingua originale:</strong>
-                <img class="flag" v-for="(flag , index) in flags" v-if="movie.original_language == index "
-              :src="flag" alt="" >
+              <p v-if="movie.title"><strong>Titolo:</strong>
+                {{ movie.title }}
               </p>
+
+              <p v-else="movie.name"><strong>Titolo:</strong>
+                {{ movie.name }}
+              </p>
+
+              <p v-if="movie.original_name"><strong>Titolo originale:</strong>
+                {{ movie.original_name }}
+              </p>
+
+              <p v-else="movie.original_title"><strong>Titolo originale:</strong>
+                {{ movie.original_title }}
+              </p>
+
+
+              <p><strong>Lingua originale:</strong>
+                <img class="flag" v-for="(flag , index) in flags" v-if="movie.original_language == index"
+                :src="flag" alt="" >
+              </p>
+              <span v-else>
+                {{ movie.original_language }}
+              </span>
               <span>
                 Voto:
                 <ul class="stars">
@@ -58,3 +76,14 @@
 
   </body>
 </html>
+
+
+
+<!-- <img class="flag" v-for="(flag , index) in flags" v-else="movie.original_language == index"
+:src="flag" alt="" > -->
+
+<!-- <p v-if="movie.original_language == 'en' && 'es' && 'it' ">
+  <strong>Lingua originale:</strong>
+  <img class="flag"
+  :src="'img/' + movie.original_language + '.png'" alt="" >
+</p> -->

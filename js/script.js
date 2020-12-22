@@ -35,17 +35,18 @@ var app = new Vue({
       }
       Promise.all([getMovies(), getTv()])
         .then(function (result) {
-          this.movies = [...result[0].data.results,...result[1].data.results];
-          console.log(this.movies);
+          self.movies.push(...result[0].data.results);
+          self.movies.push(...result[1].data.results);
+          console.log(self.movies);
           self.starsConversion(self.movies);
+          console.log(self.keywordMovieTitle);
+          self.keywordMovieTitle = "";
         });
-        self.keywordMovieTitle = "";
     },
     starsConversion: function (movies){
-      console.log("test", self.movies.length);
-      for(let i =0; i < self.movies.length; i++) {
-        const fullStars = Math.ceil(self.movies[i].vote_average /2);
-        self.movies[i].fullStars = fullStars;
+      for(let i =0; i < this.movies.length; i++) {
+        const fullStars = Math.ceil(this.movies[i].vote_average /2);
+        this.movies[i].fullStars = fullStars;
       }
     },
   },
