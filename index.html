@@ -25,7 +25,8 @@
 
       <main>
         <div id="wrapper">
-          <div class="poster" v-for="(movie , index) in movies">
+          <div class="poster" v-for= "(movie , index) in movies">
+
             <img class="flyer" :src="'https://image.tmdb.org/t/p/w220_and_h330_face/' +  movie.poster_path"  alt="">
             <div class="specs">
               <p><strong>Titolo:</strong> {{ movie.title }}</p>
@@ -41,7 +42,7 @@
                   <li v-for = "star in movie.fullStars">
                     <i class="fas fa-star"></i>
                   </li>
-                  <li v-for = "star in (5-movie.fullStars)">
+                  <li v-for = "star in (5 - movie.fullStars)">
                     <i class="far fa-star"></i>
                   </li>
                 </ul>
