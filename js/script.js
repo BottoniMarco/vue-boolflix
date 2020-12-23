@@ -3,12 +3,7 @@ var app = new Vue({
   data: {
     movies:[],
     keywordMovieTitle: "",
-    flags:
-      {
-        es:"https://external-preview.redd.it/sgupg2QyvwFm7eLaH0isYTSx1IAYT2cnG9EG2qaK7dc.png?auto=webp&s=c2fe73665a3b109d9a040fb4f70fcba4e2875149",
-        it:"https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/1200px-Flag_of_Italy.svg.png",
-        en:"https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png"
-    },
+    flags:['en','it','es'],
   },
   methods: {
     apiSearch:function () {
