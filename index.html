@@ -12,23 +12,29 @@
   <body>
     <div id="app">
       <header>
+        <!-- header bar -->
         <div class="header-bar">
           <h1 id="logo">
             BOOLFLIX
           </h1>
           <div class="search-bar">
-            <input type="text" name="" value="" placeholder="Inserisci titolo" v-model="keywordMovieTitle" v-on:keyup.enter="apiSearch() ">
+            <input type="text" name="Inserisci titolo" value="Inserisci titolo" placeholder="Inserisci titolo" v-model="keywordMovieTitle" v-on:keyup.enter="apiSearch() ">
             <button type="button" name="button" @click="apiSearch()">Cerca</button>
           </div>
         </div>
+        <!-- /header bar -->
       </header>
 
       <main>
         <div id="wrapper">
+          <!-- info-box -->
           <div class="poster" v-for= "(movie , index) in movies">
+            <!-- poster-image -->
             <img class="flyer-substitute" src="https://il-cubo.it/images/cover19.jpg" alt="generic poster" v-if="movie.poster_path == null">
-
             <img class="flyer" :src="'https://image.tmdb.org/t/p/w220_and_h330_face/' +  movie.poster_path"  alt="poster">
+            <!-- /poster-image -->
+
+            <!-- movie-info -->
             <div class="specs">
               <p v-if="movie.title"><strong>Titolo:</strong>{{ movie.title }}</p>
 
@@ -57,8 +63,13 @@
                 </ul>
               </span>
               <p><strong>Overview:</strong> {{ movie.overview }} </p>
+              <div v-for = "actor in fiveActors">
+                <p> {{ actor }} </p>
+              </div>
             </div>
+            <!-- movie-info -->
           </div>
+          <!-- /info-box -->
         </div>
       </main>
     </div>
