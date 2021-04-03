@@ -1,8 +1,32 @@
-body {
-  box-sizing: border-box;
-  padding: 0;
+*{
   margin: 0;
-  background: #434343;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+  background: url('https://cdn.hipwallpaper.com/i/98/21/dUyCkp.jpg'), rgba(0, 0, 0, 0.6);
+  background-size: cover;
+  background-position: center;
+  font-family: 'Nunito', sans-serif;
+  background-blend-mode: multiply;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width:7px
+}
+::-webkit-scrollbar-track {
+  background: #716f6f;
+  border-radius: 10px
+}
+::-webkit-scrollbar-thumb {
+  background: #d10000;
+  border-radius: 10px
 }
 
 .header-bar {
@@ -10,20 +34,64 @@ body {
   align-items: flex-end;
   justify-content: space-between;
   height: 80px;
-  background: black;
-  padding-bottom: 15px
+  background: rgba(0, 0, 0, 0.6);
+  /* padding-bottom: 15px */
 }
 
 #logo {
+  display: flex;
   color: red;
+  height: 100%;
   margin: 0;
-  padding-left: 30px
+  padding-left: 30px;
+  align-items: center;
 }
 
-.search-bar {
+.search {
   display: flex;
-  padding-right: 30px
+  height: 100%;
+  padding-right: 30px;
+  align-items: center;
 }
+
+.search-bar{
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  transition: width 1s;
+  padding: 5px;
+  width: 100px;
+}
+
+.search-bar:hover {
+  width: 250px;
+}
+
+.search-bar:focus{
+  border: none;
+  outline: none;
+}
+
+.nav_menu{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 100px;
+}
+
+.menu{
+  color: aliceblue;
+}
+
+.menu li{
+  display: inline-block;
+  list-style: none;
+  padding: 0 10px;
+  font-size: 20px;
+}
+
 
 main {
   height: 100vh;
@@ -31,48 +99,66 @@ main {
 
 }
 
-#wrapper {
+.wrapper {
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-
+  margin-top: 30px;;
 }
 
 .poster {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   position: relative;
   background: black;
-  width: 342px;
-  margin: 20px;
-  border: 2px solid white
+  width: calc(100%/4) - 20px;
+  margin: 10px;
+  border-radius: 5px;
 }
 
 .flyer {
-  width: 342px;
-  z-index: 2
+  width: calc(100%/4) - 20px;
+  z-index: 2;
+  border-radius: 5px;
 }
 
 .flyer:hover {
   opacity: 0.0;
+  z-index: 0;
 }
 
 .flyer-substitute{
-  width: 342px;
-  height: 513px;
+  width: calc(100%/4) - 20px;
+  height: 400px;
   z-index: 2
 }
 
 .flyer-substitute:hover{
+  z-index: 0;
   opacity: 0.0;
 }
 
 .specs {
+  height: 100%;
+  width: 100%;
   position: absolute;
-  left: 20px;
   color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 5px;
 }
+
+.specs:hover{
+  z-index: 2;
+}
+
+.overview{
+  width: 200px;
+  height: 150px;
+  overflow-y: auto;
+}
+
 
 .stars {
   display: inline-block;

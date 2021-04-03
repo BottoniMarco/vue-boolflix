@@ -3,6 +3,8 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js" integrity="sha512-bYkaBWaFtfPIMYt9+CX/4DWgfrjcHinjerNYxQmQx1VM76eUsPPKZa5zWV8KksVkBF/DaHSADCwil2J5Uq2ctA==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link rel="stylesheet" href="css/style.css">
@@ -17,60 +19,175 @@
           <h1 id="logo">
             BOOLFLIX
           </h1>
-          <div class="search-bar">
-            <input type="text" name="Inserisci titolo" value="Inserisci titolo" placeholder="Inserisci titolo" v-model="keywordMovieTitle" v-on:keyup.enter="apiSearch() ">
-            <button type="button" name="button" @click="apiSearch()">Cerca</button>
+          <div class="nav_menu">
+            <ul class="menu">
+              <li @click="tvOnTheAir()">Home </li>
+              <li  @click="airing()">in onda</li>
+              <li><a href=""></a>Film</li>
+              <li><a href=""></a>Serie TV</li>
+            </ul>
           </div>
-        </div>
+          <div class="search">
+            <input class="search-bar" type="text" name="Inserisci titolo" value="Inserisci titolo" placeholder="Inserisci titolo" v-model="keywordMovieTitle" v-on:keyup="apiSearch() ">
+          </div>
+          </div>
         <!-- /header bar -->
       </header>
 
       <main>
-        <div id="wrapper">
-          <!-- info-box -->
-          <div class="poster" v-for= "(movie , index) in movies">
-            <!-- poster-image -->
-            <img class="flyer-substitute" src="https://il-cubo.it/images/cover19.jpg" alt="generic poster" v-if="movie.poster_path == null">
-            <img class="flyer" :src="'https://image.tmdb.org/t/p/w220_and_h330_face/' +  movie.poster_path"  alt="poster">
-            <!-- /poster-image -->
 
-            <!-- movie-info -->
-            <div class="specs">
-              <p v-if="movie.title"><strong>Titolo:</strong>{{ movie.title }}</p>
 
-              <p v-else="movie.name"><strong>Titolo:</strong>{{ movie.name }}</p>
-
-              <p v-if="movie.original_name"><strong>Titolo originale:</strong>{{ movie.original_name }}</p>
-
-              <p v-else="movie.original_title"><strong>Titolo originale:</strong>{{ movie.original_title }}</p>
-
-              <p><strong>Lingua originale:</strong>
-                <img class="flag"  v-if="flags.includes(movie.original_language)"
-                :src="'img/' + movie.original_language + '.png'" :alt="movie.original_language" >
-                <span v-else>
-                  {{ movie.original_language }}
+        <template >
+          
+          <div class="wrapper" >
+            <!-- info-box -->
+            <div class="poster" v-for = "(todayShow , index)  in airingToday">
+              <!-- poster-image -->
+              <img class="flyer-substitute" src="https://il-cubo.it/images/cover19.jpg" alt="generic poster" v-if="todayShow.poster_path == null">
+              <img class="flyer" :src="'https://image.tmdb.org/t/p/w220_and_h330_face/' +  todayShow.poster_path"  alt="">
+              <!-- /poster-image -->
+  
+              <!-- todayShow-info -->
+              <div class="specs">
+                <p v-if="todayShow.title"><strong>Titolo:</strong>{{ todayShow.title }}</p>
+  
+                <p v-else="todayShow.name"><strong>Titolo:</strong>{{ todayShow.name }}</p>
+  
+                <p v-if="todayShow.original_name"><strong>Titolo originale:</strong>{{ todayShow.original_name }}</p>
+  
+                <p v-else="todayShow.original_title"><strong>Titolo originale:</strong>{{ todayShow.original_title }}</p>
+  
+                <p><strong>Lingua originale:</strong>
+                  <img class="flag"  v-if="flags.includes(todayShow.original_language)"
+                  :src="'img/' + todayShow.original_language + '.png'" :alt="todayShow.original_language" >
+                  <span v-else>
+                    {{ todayShow.original_language }}
+                  </span>
+                </p>
+                <span>
+                  Voto:
+                  <ul class="stars">
+                    <li v-for = "star in todayShow.fullStars">
+                      <i class="fas fa-star"></i>
+                    </li>
+                    <li v-for = "star in (5 - todayShow.fullStars)">
+                      <i class="far fa-star"></i>
+                    </li>
+                  </ul>
                 </span>
-              </p>
-              <span>
-                Voto:
-                <ul class="stars">
-                  <li v-for = "star in movie.fullStars">
-                    <i class="fas fa-star"></i>
-                  </li>
-                  <li v-for = "star in (5 - movie.fullStars)">
-                    <i class="far fa-star"></i>
-                  </li>
-                </ul>
-              </span>
-              <p><strong>Overview:</strong> {{ movie.overview }} </p>
-              <div v-for = "actor in fiveActors">
-                <p> {{ actor }} </p>
-              </div>
+                <div class="overview"> 
+                  <strong>Overview:</strong> 
+                  <p>{{ todayShow.overview }} </p>
+                </div>
+  
+              <!-- /movie-info -->
             </div>
-            <!-- movie-info -->
+            <!-- /info-box -->
           </div>
-          <!-- /info-box -->
-        </div>
+        </template>
+
+
+        <template v-if="(keywordMovieTitle != '')">
+
+          <div class="wrapper">
+            <!-- info-box -->
+            <div class="poster" v-for= "(movie , index) in movies">
+              <!-- poster-image -->
+              <img class="flyer-substitute" src="https://il-cubo.it/images/cover19.jpg" alt="generic poster" v-if="movie.poster_path == null">
+              <img class="flyer" :src="'https://image.tmdb.org/t/p/w220_and_h330_face/' +  movie.poster_path"  alt="">
+              <!-- /poster-image -->
+  
+              <!-- movie-info -->
+              <div class="specs">
+                <p v-if="movie.title"><strong>Titolo:</strong>{{ movie.title }}</p>
+  
+                <p v-else="movie.name"><strong>Titolo:</strong>{{ movie.name }}</p>
+  
+                <p v-if="movie.original_name"><strong>Titolo originale:</strong>{{ movie.original_name }}</p>
+  
+                <p v-else="movie.original_title"><strong>Titolo originale:</strong>{{ movie.original_title }}</p>
+  
+                <p><strong>Lingua originale:</strong>
+                  <img class="flag"  v-if="flags.includes(movie.original_language)"
+                  :src="'img/' + movie.original_language + '.png'" :alt="movie.original_language" >
+                  <span v-else>
+                    {{ movie.original_language }}
+                  </span>
+                </p>
+                <span>
+                  Voto:
+                  <ul class="stars">
+                    <li v-for = "star in movie.fullStars">
+                      <i class="fas fa-star"></i>
+                    </li>
+                    <li v-for = "star in (5 - movie.fullStars)">
+                      <i class="far fa-star"></i>
+                    </li>
+                  </ul>
+                </span>
+                <div class="overview"> 
+                  <strong>Overview:</strong> 
+                  <p>{{ movie.overview }} </p>
+                </div>
+  
+              <!-- /movie-info -->
+            </div>
+            <!-- /info-box -->
+          </div>
+        </template>
+
+        
+
+        <template v-if="(keywordMovieTitle == '') && (onTheAir.length != 0)">
+
+          <div class="wrapper" >
+            <!-- info-box -->
+            <div class="poster" v-for= "(air , index) in onTheAir">
+              <!-- poster-image -->
+              <img class="flyer-substitute" src="https://il-cubo.it/images/cover19.jpg" alt="generic poster" v-if="air.poster_path == null">
+              <img class="flyer" :src="'https://image.tmdb.org/t/p/w220_and_h330_face/' +  air.poster_path"  alt="">
+              <!-- /poster-image -->
+  
+              <!-- air-info -->
+              <div class="specs">
+                <p v-if="air.title"><strong>Titolo:</strong>{{ air.title }}</p>
+  
+                <p v-else="air.name"><strong>Titolo:</strong>{{ air.name }}</p>
+  
+                <p v-if="air.original_name"><strong>Titolo originale:</strong>{{ air.original_name }}</p>
+  
+                <p v-else="air.original_title"><strong>Titolo originale:</strong>{{ air.original_title }}</p>
+  
+                <p><strong>Lingua originale:</strong>
+                  <img class="flag"  v-if="flags.includes(air.original_language)"
+                  :src="'img/' + air.original_language + '.png'" :alt="air.original_language" >
+                  <span v-else>
+                    {{ air.original_language }}
+                  </span>
+                </p>
+                <span>
+                  Voto:
+                  <ul class="stars">
+                    <li v-for = "star in air.fullStars">
+                      <i class="fas fa-star"></i>
+                    </li>
+                    <li v-for = "star in (5 - air.fullStars)">
+                      <i class="far fa-star"></i>
+                    </li>
+                  </ul>
+                </span>
+                <div class="overview"> 
+                  <strong>Overview:</strong> 
+                  <p>{{ air.overview }} </p>
+                </div>
+  
+              <!-- /movie-info -->
+            </div>
+            <!-- /info-box -->
+          </div>
+        </template>
+     
+
       </main>
     </div>
 
